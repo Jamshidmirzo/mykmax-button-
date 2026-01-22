@@ -1,0 +1,77 @@
+name: kmax
+description: "A new Flutter project."
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  liquid_glass_renderer: ^0.2.0-dev.4
+  smooth_page_indicator: ^2.0.1
+  flutter_screenutil: ^5.9.3
+  gap: ^3.0.1
+  flutter_svg: ^2.2.3
+  shared_preferences: ^2.5.4
+  flutter_riverpod: ^3.1.0
+  go_router: ^17.0.1
+  get_it: ^9.2.0
+  injectable: ^2.7.1+4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^6.0.0
+  injectable_generator: ^2.9.1
+  build_runner: ^2.10.5
+  go_router_builder: ^4.1.3
+
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - fonts/
+
+  fonts:
+    - family: GoogleSans
+      fonts: 
+        - asset: fonts/GoogleSans-Bold.ttf
+        - weight: 700
+        - asset: fonts/GoogleSans-Medium.ttf
+        - weight: 500
+        - asset: fonts/GoogleSans-Regular.ttf
+        - weight: 400
+        - asset: fonts/GoogleSans-Regular.ttf
+        - weight: 600
+
+  # fonts:
+  #   - family: bold
+  #     fonts:
+  #       - asset: fonts/GoogleSans-Bold.ttf
+
+  #   - family: medium
+  #     fonts:
+  #       - asset: fonts/GoogleSans-Medium.ttf
+  #   - family: regular
+  #     fonts:
+  #       - asset: fonts/GoogleSans-Regular.ttf
+  #   - family: semiBold
+  #     fonts:
+  #       - asset: fonts/GoogleSans-SemiBold.ttf
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
