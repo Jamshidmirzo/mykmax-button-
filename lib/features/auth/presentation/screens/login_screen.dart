@@ -1,147 +1,116 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kmax/core/button/button_states.dart';
-import 'package:kmax/core/button/button_widget_old.dart';
+import 'package:kmax/core/button/button_widget.dart';
+import 'package:kmax/core/themes/theme_provider.dart';
 import 'package:kmax/core/utils/app_icons.dart';
-
 import 'package:kmax/features/onboardings/presentation/providers/onboarding_provider.dart';
+
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
+        title: const Text('Login'),
         leading: IconButton(
           onPressed: () {
+            // Reset onboarding state for testing purposes
             ref.read(onboardingProvider.notifier).save(false);
           },
-          icon: Icon(Icons.logout_outlined),
+          icon: const Icon(Icons.logout_outlined),
+          tooltip: 'Logout',
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref.read(themeModeProvider.notifier).toggleTheme();
+            },
+            icon: Icon(
+              themeMode == ThemeMode.dark ? Icons.light_mode : Icons.dark_mode,
+            ),
+            tooltip: 'Toggle Theme',
+          ),
+        ],
       ),
-      body: Padding(
-        padding: EdgeInsetsGeometry.all(16),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          spacing: 10,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            //normal
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              alignment: WrapAlignment.center,
               children: [
                 ButtonWidget(
-                  state: AppButtonState.normal,
+                  state: const AppButtonState.normal(),
                   leftIcon: AppIcons.person,
                   rightIcon: AppIcons.arrowRight,
-                  title: 'Button',
+                  title: 'Primary',
                   onTap: () {},
                 ),
                 ButtonWidget(
-                  state: AppButtonState.normal,
+                  state: const AppButtonState.normal(),
                   leftIcon: AppIcons.person,
-                  title: 'Button',
+                  title: 'Title',
                   onTap: () {},
                 ),
-
                 ButtonWidget(
-                  state: AppButtonState.normal,
+                  state: const AppButtonState.normal(),
                   leftIcon: AppIcons.person,
                   onTap: () {},
                 ),
               ],
             ),
+            const SizedBox(height: 24),
 
-            ButtonWidget(
-              state: AppButtonState.neutral,
-              leftIcon: AppIcons.person,
-              title: 'Button',
-              // autofocus: true,
-              onTap: () {},
+            Column(
+              children: [
+                ButtonWidget(
+                  state: const AppButtonState.neutral(),
+                  leftIcon: AppIcons.person,
+                  title: 'Neutral Button',
+                  onTap: () {},
+                ),
+                const SizedBox(height: 12),
+                ButtonWidget(
+                  state: const AppButtonState.link(),
+                  leftIcon: AppIcons.person,
+                  title: 'Link Button',
+                  onTap: () {},
+                ),
+                const SizedBox(height: 12),
+                ButtonWidget(
+                  state: const AppButtonState.error(),
+                  leftIcon: AppIcons.person,
+                  title: 'Error Button',
+                  onTap: () {},
+                ),
+                const SizedBox(height: 12),
+                ButtonWidget(
+                  size: AppButtonSize.lg,
+                  state: const AppButtonState.outline(),
+                  leftIcon: AppIcons.person,
+                  title: 'Outline Button',
+                  onTap: () {},
+                ),
+                const SizedBox(height: 12),
+                ButtonWidget(
+                  state: const AppButtonState.neutral(),
+                  leftIcon: AppIcons.person,
+                  title: 'Disabled State',
+                  onTap: null, 
+                ),
+              ],
             ),
-            ButtonWidget(
-              state: AppButtonState.link,
-              leftIcon: AppIcons.person,
-              title: 'Button',
-              onTap: () {},
-            ),
-            ButtonWidget(
-              state: AppButtonState.error,
-              leftIcon: AppIcons.person,
-              title: 'Button',
-              onTap: () {},
-            ),
-
-            // ButtonWidget(
-            //   state: AppButtonState.neutral,
-            //   leftIcon: AppIcons.person,
-            //   title: 'Button',
-            //   onTap: () {},
-            // ),
-            ButtonWidget(
-              size: AppButtonSize.lg,
-              state: AppButtonState.outline,
-              leftIcon: AppIcons.person,
-              title: 'Button',
-              onTap: () {},
-            ),
-            ButtonWidget(
-              state: AppButtonState.outline,
-              leftIcon: AppIcons.person,
-              title: 'Disabled',
-              onTap: null,
-            ),
-            // ButtonWidget(
-            //   state: AppButtonState.thertiaty,
-            //   leftIcon: AppIcons.person,
-            //   title: 'Button',
-            //   onTap: () {},
-            // ),
-            // WebButton(),
           ],
         ),
       ),
     );
   }
 }
-
-// class WebButton extends StatefulWidget {
-//   const WebButton({super.key});
-
-//   @override
-//   State<WebButton> createState() => _WebButtonState();
-// }
-
-// class _WebButtonState extends State<WebButton> {
-//   bool _hovered = false;
-//   bool _focused = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FocusableActionDetector(
-//       onShowHoverHighlight: (value) {
-//         setState(() => _hovered = value);
-//       },
-//       onShowFocusHighlight: (value) {
-//         setState(() => _focused = value);
-//       },
-//       child: Container(
-//         decoration: BoxDecoration(
-//           border: Border.all(
-//             color: _focused
-//                 ? Colors.blue
-//                 : _hovered
-//                 ? Colors.orange
-//                 : Colors.transparent,
-//             width: 2,
-//           ),
-//           borderRadius: BorderRadius.circular(8),
-//         ),
-//         child: ElevatedButton(
-//           onPressed: () {},
-//           child: const Text('Hover / Focus'),
-//         ),
-//       ),
-//     );
-//   }
-// }

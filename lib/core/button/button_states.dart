@@ -1,358 +1,351 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kmax/core/model/style_model.dart';
-import 'package:kmax/core/extension/extension.dart';
+import 'package:kmax/core/themes/theme_app.dart';
+
 enum AppButtonSize { xl, lg, md, sm, xs }
 
-enum AppButtonState {
-  normal,
-  neutral,
-  link,
-  thertiaty,
-  error,
-  outline,
+sealed class AppButtonState {
+  const AppButtonState();
+
+  const factory AppButtonState.normal() = _Normal;
+  const factory AppButtonState.neutral() = _Neutral;
+  const factory AppButtonState.error() = _Error;
+  const factory AppButtonState.link() = _Link;
+  const factory AppButtonState.tertiary() = _Tertiary;
+  const factory AppButtonState.outline() = _Outline;
+
+  Color bg(ColorThemeData colors);
+  Color hoverBg(ColorThemeData colors);
+  Color focusedBg(ColorThemeData colors);
+  Color pressedBg(ColorThemeData colors);
+  Color disabledBg(ColorThemeData colors);
+
+  StyleModel style(ColorThemeData colors);
+  StyleModel hoverStyle(ColorThemeData colors);
+  StyleModel focusedStyle(ColorThemeData colors);
+  StyleModel pressedStyle(ColorThemeData colors);
+  StyleModel disabledStyle(ColorThemeData colors);
+
+  BorderSide side(ColorThemeData colors);
+  BorderSide hoverSide(ColorThemeData colors);
+  BorderSide focusedSide(ColorThemeData colors);
+  BorderSide disabledSide(ColorThemeData colors);
+
+  OutlinedBorder shape(BuildContext context, {bool isIconOnly = false}) {
+    if (isIconOnly) return const CircleBorder();
+    return RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(100.r),
+    );
+  }
 }
 
+class _Normal extends AppButtonState {
+  const _Normal();
 
-// sealed class AppButtonState {
-//   const AppButtonState();
+  @override
+  Color bg(ColorThemeData colors) => colors.brand;
 
-//   const factory AppButtonState.normal() = _Normal;
-//   const factory AppButtonState.neutral() = _Neutral;
-//   const factory AppButtonState.error() = _Error;
-//   const factory AppButtonState.link() = _Link;
-//   const factory AppButtonState.tertiary() = _Tertiary;
-//   const factory AppButtonState.outline() = _Outline;
+  @override
+  Color hoverBg(ColorThemeData colors) => colors.brand.shade400;
 
-//   // ----------------- COLORS -----------------
-//   Color bg(BuildContext context);
-//   Color hoverBg(BuildContext context);
-//   Color focusedBg(BuildContext context);
-//   Color disabledBg(BuildContext context);
+  @override
+  Color focusedBg(ColorThemeData colors) => colors.brand.shade600;
 
-//   // ----------------- STYLE -----------------
-//   StyleModel style(BuildContext context);
-//   StyleModel hoverStyle(BuildContext context);
-//   StyleModel focusedStyle(BuildContext context);
-//   StyleModel disabledStyle(BuildContext context);
+  @override
+  Color pressedBg(ColorThemeData colors) =>
+      colors.brand.shade600.withValues(alpha: 0.8);
 
-//   // ----------------- BORDER -----------------
-//   BorderSide side(BuildContext context);
-//   BorderSide hoverSide(BuildContext context);
-//   BorderSide focusedSide(BuildContext context);
-//   BorderSide disabledSide(BuildContext context);
+  @override
+  Color disabledBg(ColorThemeData colors) => colors.neutral.shade200;
 
-//   // ----------------- SHAPE -----------------
-//   OutlinedBorder shape(BuildContext context);
-// }
+  @override
+  StyleModel style(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade50);
 
-// // ==================================================
-// // ================= NORMAL =========================
-// // ==================================================
-// class _Normal extends AppButtonState {
-//   const _Normal();
+  @override
+  StyleModel hoverStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   Color bg(BuildContext context) => context.color.brand;
+  @override
+  StyleModel focusedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   Color hoverBg(BuildContext context) => const Color(0xFFAD82FC);
+  @override
+  StyleModel pressedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   Color focusedBg(BuildContext context) => const Color(0xFF8444FB);
+  @override
+  StyleModel disabledStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade300);
 
-//   @override
-//   Color disabledBg(BuildContext context) => context.color.neutral.shade200;
+  @override
+  BorderSide side(ColorThemeData colors) => BorderSide.none;
 
-//   @override
-//   StyleModel style(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade50);
+  @override
+  BorderSide hoverSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   StyleModel hoverStyle(BuildContext context) => style(context);
+  @override
+  BorderSide focusedSide(ColorThemeData colors) =>
+      BorderSide(color: colors.brand.shade700, width: 4);
 
-//   @override
-//   StyleModel focusedStyle(BuildContext context) => style(context);
+  @override
+  BorderSide disabledSide(ColorThemeData colors) => side(colors);
+}
 
-//   @override
-//   StyleModel disabledStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade300);
+class _Neutral extends AppButtonState {
+  const _Neutral();
 
-//   @override
-//   BorderSide side(BuildContext context) =>
-//       BorderSide(color: context.color.neutral.shade600);
+  @override
+  Color bg(ColorThemeData colors) => colors.neutral.shade50;
 
-//   @override
-//   BorderSide hoverSide(BuildContext context) => side(context);
+  @override
+  Color hoverBg(ColorThemeData colors) => colors.brand.shade100;
 
-//   @override
-//   BorderSide focusedSide(BuildContext context) => side(context);
+  @override
+  Color focusedBg(ColorThemeData colors) => colors.neutral.shade50;
 
-//   @override
-//   BorderSide disabledSide(BuildContext context) => side(context);
+  @override
+  Color pressedBg(ColorThemeData colors) => colors.neutral.shade50;
 
-//   @override
-//   OutlinedBorder shape(BuildContext context) =>
-//       RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r));
-// }
+  @override
+  Color disabledBg(ColorThemeData colors) => colors.neutral.shade200;
 
-// // ==================================================
-// // ================= NEUTRAL ========================
-// // ==================================================
-// class _Neutral extends AppButtonState {
-//   const _Neutral();
+  @override
+  StyleModel style(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade800);
 
-//   @override
-//   Color bg(BuildContext context) => context.color.neutral.shade50;
+  @override
+  StyleModel hoverStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   Color hoverBg(BuildContext context) => context.color.brand.shade100;
+  @override
+  StyleModel focusedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   Color focusedBg(BuildContext context) => context.color.neutral.shade50;
+  @override
+  StyleModel pressedStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.brand);
 
-//   @override
-//   Color disabledBg(BuildContext context) => context.color.neutral.shade200;
+  @override
+  StyleModel disabledStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade300);
 
-//   @override
-//   StyleModel style(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade800);
+  @override
+  BorderSide side(ColorThemeData colors) => BorderSide.none;
 
-//   @override
-//   StyleModel hoverStyle(BuildContext context) => style(context);
+  @override
+  BorderSide hoverSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   StyleModel focusedStyle(BuildContext context) => style(context);
+  @override
+  BorderSide focusedSide(ColorThemeData colors) => BorderSide(
+    color: colors.neutral.shade300,
+    width: 4,
+  );
 
-//   @override
-//   StyleModel disabledStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade300);
+  @override
+  BorderSide disabledSide(ColorThemeData colors) => side(colors);
+}
 
-//   @override
-//   BorderSide side(BuildContext context) =>
-//       BorderSide(color: context.color.neutral.shade600);
+class _Error extends AppButtonState {
+  const _Error();
 
-//   @override
-//   BorderSide hoverSide(BuildContext context) => side(context);
+  @override
+  Color bg(ColorThemeData colors) => colors.error;
 
-//   @override
-//   BorderSide focusedSide(BuildContext context) => side(context);
+  @override
+  Color hoverBg(ColorThemeData colors) => colors.error.shade700;
 
-//   @override
-//   BorderSide disabledSide(BuildContext context) => side(context);
+  @override
+  Color focusedBg(ColorThemeData colors) => colors.error.shade700;
 
-//   @override
-//   OutlinedBorder shape(BuildContext context) =>
-//       RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r));
-// }
+  @override
+  Color pressedBg(ColorThemeData colors) => colors.error.shade50;
 
-// // ==================================================
-// // ================= ERROR ==========================
-// // ==================================================
-// class _Error extends AppButtonState {
-//   const _Error();
+  @override
+  Color disabledBg(ColorThemeData colors) => colors.neutral.shade400;
 
-//   @override
-//   Color bg(BuildContext context) => context.color.error;
+  @override
+  StyleModel style(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade50);
 
-//   @override
-//   Color hoverBg(BuildContext context) => context.color.error.shade700;
+  @override
+  StyleModel hoverStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   Color focusedBg(BuildContext context) => context.color.error.shade700;
+  @override
+  StyleModel focusedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   Color disabledBg(BuildContext context) => context.color.neutral.shade400;
+  @override
+  StyleModel pressedStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.error);
 
-//   @override
-//   StyleModel style(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade50);
+  @override
+  StyleModel disabledStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade300);
 
-//   @override
-//   StyleModel hoverStyle(BuildContext context) => style(context);
+  @override
+  BorderSide side(ColorThemeData colors) => BorderSide.none;
 
-//   @override
-//   StyleModel focusedStyle(BuildContext context) => style(context);
+  @override
+  BorderSide hoverSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   StyleModel disabledStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade300);
+  @override
+  BorderSide focusedSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   BorderSide side(BuildContext context) =>
-//       BorderSide(color: context.color.neutral.shade200, width: 1);
+  @override
+  BorderSide disabledSide(ColorThemeData colors) => side(colors);
+}
 
-//   @override
-//   BorderSide hoverSide(BuildContext context) => side(context);
+class _Link extends AppButtonState {
+  const _Link();
 
-//   @override
-//   BorderSide focusedSide(BuildContext context) => side(context);
+  @override
+  Color bg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   BorderSide disabledSide(BuildContext context) => side(context);
+  @override
+  Color hoverBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   OutlinedBorder shape(BuildContext context) =>
-//       RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r));
-// }
+  @override
+  Color focusedBg(ColorThemeData colors) => Colors.transparent;
 
-// // ==================================================
-// // ================= LINK ===========================
-// // ==================================================
-// class _Link extends AppButtonState {
-//   const _Link();
+  @override
+  Color pressedBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color bg(BuildContext context) => Colors.transparent;
+  @override
+  Color disabledBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color hoverBg(BuildContext context) => Colors.transparent;
+  @override
+  StyleModel style(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.brand);
 
-//   @override
-//   Color focusedBg(BuildContext context) => Colors.transparent;
+  @override
+  StyleModel hoverStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.brand.shade700);
 
-//   @override
-//   Color disabledBg(BuildContext context) => Colors.transparent;
+  @override
+  StyleModel focusedStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.brand.shade700);
 
-//   @override
-//   StyleModel style(BuildContext context) =>
-//       StyleModel(contentColor: context.color.brand);
+  @override
+  StyleModel pressedStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.brand.shade800);
 
-//   @override
-//   StyleModel hoverStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.brand.shade700);
+  @override
+  StyleModel disabledStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade200);
 
-//   @override
-//   StyleModel focusedStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.brand.shade700);
+  @override
+  BorderSide side(ColorThemeData colors) => BorderSide.none;
 
-//   @override
-//   StyleModel disabledStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade200);
+  @override
+  BorderSide hoverSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   BorderSide side(BuildContext context) =>
-//       const BorderSide(color: Colors.transparent, width: 1);
+  @override
+  BorderSide focusedSide(ColorThemeData colors) =>
+      BorderSide(color: colors.brand, width: 1);
 
-//   @override
-//   BorderSide hoverSide(BuildContext context) =>
-//       BorderSide(color: context.color.brand.shade700, width: 1);
+  @override
+  BorderSide disabledSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   BorderSide focusedSide(BuildContext context) =>
-//       BorderSide(color: context.color.brand, width: 1);
+  @override
+  OutlinedBorder shape(BuildContext context, {bool isIconOnly = false}) =>
+      const LinearBorder(
+        bottom: LinearBorderEdge(size: 1.0),
+      );
+}
 
-//   @override
-//   BorderSide disabledSide(BuildContext context) =>
-//       BorderSide(color: context.color.neutral.shade300, width: 1);
+class _Tertiary extends AppButtonState {
+  const _Tertiary();
 
-//   @override
-//   OutlinedBorder shape(BuildContext context) => LinearBorder.bottom();
-// }
+  @override
+  Color bg(ColorThemeData colors) => Colors.transparent;
 
-// // ==================================================
-// // ================= TERTIARY ========================
-// // ==================================================
-// class _Tertiary extends AppButtonState {
-//   const _Tertiary();
+  @override
+  Color hoverBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color bg(BuildContext context) => Colors.transparent;
+  @override
+  Color focusedBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color hoverBg(BuildContext context) => Colors.transparent;
+  @override
+  Color pressedBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color focusedBg(BuildContext context) => Colors.transparent;
+  @override
+  Color disabledBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color disabledBg(BuildContext context) => Colors.transparent;
+  @override
+  StyleModel style(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade50);
 
-//   @override
-//   StyleModel style(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade50);
+  @override
+  StyleModel hoverStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   StyleModel hoverStyle(BuildContext context) => style(context);
+  @override
+  StyleModel focusedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   StyleModel focusedStyle(BuildContext context) => style(context);
+  @override
+  StyleModel pressedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   StyleModel disabledStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade200);
+  @override
+  StyleModel disabledStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade200);
 
-//   @override
-//   BorderSide side(BuildContext context) =>
-//       BorderSide(color: context.color.neutral.shade200, width: 1);
+  @override
+  BorderSide side(ColorThemeData colors) =>
+      BorderSide(color: colors.neutral.shade200, width: 1);
 
-//   @override
-//   BorderSide hoverSide(BuildContext context) => side(context);
+  @override
+  BorderSide hoverSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   BorderSide focusedSide(BuildContext context) => side(context);
+  @override
+  BorderSide focusedSide(ColorThemeData colors) => side(colors);
 
-//   @override
-//   BorderSide disabledSide(BuildContext context) => side(context);
+  @override
+  BorderSide disabledSide(ColorThemeData colors) => side(colors);
+}
 
-//   @override
-//   OutlinedBorder shape(BuildContext context) =>
-//       RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r));
-// }
+class _Outline extends AppButtonState {
+  const _Outline();
 
-// // ==================================================
-// // ================= OUTLINE ========================
-// // ==================================================
-// class _Outline extends AppButtonState {
-//   const _Outline();
+  @override
+  Color bg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color bg(BuildContext context) => Colors.transparent;
+  @override
+  Color hoverBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color hoverBg(BuildContext context) => Colors.transparent;
+  @override
+  Color focusedBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color focusedBg(BuildContext context) => Colors.transparent;
+  @override
+  Color pressedBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   Color disabledBg(BuildContext context) => Colors.transparent;
+  @override
+  Color disabledBg(ColorThemeData colors) => Colors.transparent;
 
-//   @override
-//   StyleModel style(BuildContext context) =>
-//       StyleModel(contentColor: context.color.error);
+  @override
+  StyleModel style(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.error);
 
-//   @override
-//   StyleModel hoverStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.error);
+  @override
+  StyleModel hoverStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   StyleModel focusedStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.error);
+  @override
+  StyleModel focusedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   StyleModel disabledStyle(BuildContext context) =>
-//       StyleModel(contentColor: context.color.neutral.shade200);
+  @override
+  StyleModel pressedStyle(ColorThemeData colors) => style(colors);
 
-//   @override
-//   BorderSide side(BuildContext context) =>
-//       BorderSide(color: context.color.error.shade500, width: 2);
+  @override
+  StyleModel disabledStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.neutral.shade200);
 
-//   @override
-//   BorderSide hoverSide(BuildContext context) =>
-//       BorderSide(color: context.color.error.shade700, width: 2);
+  @override
+  BorderSide side(ColorThemeData colors) =>
+      BorderSide(color: colors.error.shade500, width: 2);
 
-//   @override
-//   BorderSide focusedSide(BuildContext context) =>
-//       BorderSide(color: context.color.error.shade700, width: 4);
+  @override
+  BorderSide hoverSide(ColorThemeData colors) =>
+      BorderSide(color: colors.error.shade700, width: 2);
 
-//   @override
-//   BorderSide disabledSide(BuildContext context) =>
-//       BorderSide(color: context.color.neutral.shade300, width: 2);
+  @override
+  BorderSide focusedSide(ColorThemeData colors) =>
+      BorderSide(color: colors.error.shade700, width: 4);
 
-//   @override
-//   OutlinedBorder shape(BuildContext context) =>
-//       RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r));
-// }
-
+  @override
+  BorderSide disabledSide(ColorThemeData colors) =>
+      BorderSide(color: colors.neutral.shade300, width: 2);
+}

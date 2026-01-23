@@ -17,8 +17,8 @@ class CustomButtonThemeData {
   double? iconSize;
 
   CustomButtonThemeData({
-    required this.size,
-    required this.state,
+    this.size = AppButtonSize.md,
+    this.state = const AppButtonState.normal(),
     this.bgColor,
     this.borderColor,
     this.borderRadius,

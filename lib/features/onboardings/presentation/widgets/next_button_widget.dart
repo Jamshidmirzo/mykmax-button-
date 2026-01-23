@@ -22,9 +22,7 @@ class NextButtonWidget extends StatelessWidget {
       child: AnimatedBuilder(
         animation: animationController,
         builder: (context, child) {
-          // Adaptive padding based on animation state
-          // When animation is active (value > 0), use smaller padding for tighter circle
-          // When at rest (value == 0), use larger padding
+       
           final adaptivePadding = animationController.value > 0.1 ? 2.0 : 5.0;
           
           return Container(

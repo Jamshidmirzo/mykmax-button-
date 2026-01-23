@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:kmax/core/button/button_theme.dart';
 import 'package:kmax/core/button/button_states.dart';
 import 'package:kmax/core/themes/color_themes.dart';
 import 'package:kmax/core/themes/theme_app.dart';
+import 'package:kmax/core/themes/theme_provider.dart';
 import 'package:kmax/core/utils/app_typography.dart';
 import 'package:kmax/core/themes/text_style_theme.dart';
 import 'package:kmax/features/onboardings/presentation/providers/onboarding_provider.dart';
@@ -35,33 +37,40 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(goRouterProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final themeMode = ref.watch(themeModeProvider);
 
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: ColorThemes(
-        color: isDark ? ColorThemeData.dark() : ColorThemeData.light(),
-        child: Builder(
-          builder: (context) {
-            return CustomButtonTheme(
+      child: Builder(
+        builder: (context) {
+          final brightness = themeMode == ThemeMode.dark
+              ? Brightness.dark
+              : themeMode == ThemeMode.light
+              ? Brightness.light
+              : MediaQuery.of(context).platformBrightness;
+
+          final isDark = brightness == Brightness.dark;
+          return ColorThemes(
+            color: isDark ? ColorThemeData.dark() : ColorThemeData.light(),
+            child: CustomButtonTheme(
               theme: CustomButtonThemeData(
                 size: AppButtonSize.md,
-                state: AppButtonState.normal,
+                state: AppButtonState.normal(),
                 borderRadius: 30,
               ),
               child: TextStyleTheme(
                 styles: PrimaryStyles.mobile(),
                 child: MaterialApp.router(
-                  themeMode: ThemeMode.system,
+                  themeMode: themeMode,
                   debugShowCheckedModeBanner: false,
                   routerConfig: router,
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
