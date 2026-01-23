@@ -1,4 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kmax/core/button/button_states.dart';
 
 extension AppButtonSizeExtension on AppButtonSize {
@@ -80,45 +79,45 @@ extension AppButtonSizeExtension on AppButtonSize {
   double get iconRightHeight {
     switch (this) {
       case AppButtonSize.xl:
-        return 15.h;
+        return 15;
       case AppButtonSize.lg:
-        return 13.h;
+        return 13;
       case AppButtonSize.md:
-        return 13.h;
+        return 13;
       case AppButtonSize.sm:
-        return 10.h;
+        return 10;
       case AppButtonSize.xs:
-        return 10.h;
+        return 10;
     }
   }
 
   double get gapLeft {
     switch (this) {
       case AppButtonSize.xl:
-        return 12.w;
+        return 12;
       case AppButtonSize.lg:
-        return 10.w;
+        return 10;
       case AppButtonSize.md:
-        return 8.w;
+        return 8;
       case AppButtonSize.sm:
-        return 6.w;
+        return 6;
       case AppButtonSize.xs:
-        return 4.w;
+        return 4;
     }
   }
 
   double get gapRight {
     switch (this) {
       case AppButtonSize.xl:
-        return 12.w;
+        return 12;
       case AppButtonSize.lg:
-        return 10.w;
+        return 10;
       case AppButtonSize.md:
-        return 8.w;
+        return 8;
       case AppButtonSize.sm:
-        return 6.w;
+        return 6;
       case AppButtonSize.xs:
-        return 4.w;
+        return 4;
     }
   }
 
