@@ -14,7 +14,13 @@ class LoginScreen extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
 
     return Scaffold(
+      backgroundColor: themeMode == ThemeMode.dark
+          ? Colors.black
+          : Colors.white,
       appBar: AppBar(
+        backgroundColor: themeMode == ThemeMode.dark
+            ? Colors.black
+            : Colors.white,
         title: const Text('Login'),
         leading: IconButton(
           onPressed: () {
@@ -68,6 +74,7 @@ class LoginScreen extends ConsumerWidget {
             const SizedBox(height: 24),
 
             Column(
+              spacing: 10,
               children: [
                 ButtonWidget(
                   state: const AppButtonState.neutral(),
@@ -75,21 +82,23 @@ class LoginScreen extends ConsumerWidget {
                   title: 'Neutral Button',
                   onTap: () {},
                 ),
-                const SizedBox(height: 12),
+
                 ButtonWidget(
                   state: const AppButtonState.link(),
                   leftIcon: AppIcons.person,
                   title: 'Link Button',
                   onTap: () {},
                 ),
-                const SizedBox(height: 12),
+
                 ButtonWidget(
                   state: const AppButtonState.error(),
                   leftIcon: AppIcons.person,
                   title: 'Error Button',
+
+                  size: AppButtonSize.sm,
                   onTap: () {},
                 ),
-                const SizedBox(height: 12),
+
                 ButtonWidget(
                   size: AppButtonSize.lg,
                   state: const AppButtonState.outline(),
@@ -97,9 +106,9 @@ class LoginScreen extends ConsumerWidget {
                   title: 'Outline Button',
                   onTap: () {},
                 ),
-                const SizedBox(height: 12),
+
                 ButtonWidget(
-                  state: const AppButtonState.neutral(),
+                  state: const AppButtonState.outline(),
                   leftIcon: AppIcons.person,
                   title: 'Disabled State',
                   onTap: null,

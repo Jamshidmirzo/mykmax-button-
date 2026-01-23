@@ -49,6 +49,9 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             (widget.leftIcon == null && widget.rightIcon != null));
 
     final AppButtonState currentState = widget.state ?? effectiveTheme.state;
+
+    final double height = effectiveTheme.height ?? effectiveSize.height;
+    final double padding = effectiveTheme.padding ?? effectiveSize.padding;
     final double iconLeftWidth = effectiveSize.iconLeftWidth;
     final double iconLeftHeight = effectiveSize.iconLeftHeight;
     final double iconRightWidth = effectiveSize.iconRightWidth;
@@ -61,8 +64,18 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       autofocus: widget.autofocus,
       onPressed: widget.onTap,
       style: ButtonStyle(
+        fixedSize: WidgetStatePropertyAll(
+          Size(
+            isIconOnly ? height : double.nan,
+            height,
+          ),
+        ),
         padding: WidgetStateProperty.all(EdgeInsets.zero),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        visualDensity: VisualDensity(
+          horizontal: VisualDensity.minimumDensity,
+          vertical: VisualDensity.minimumDensity,
+        ),
         overlayColor: WidgetStateProperty.all(Colors.transparent),
         splashFactory: NoSplash.splashFactory,
         foregroundColor: WidgetStateProperty.resolveWith((states) {
@@ -93,7 +106,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         fontSize,
         colors,
         isIconOnly,
-        effectiveSize,
+        padding,
       ),
     );
   }
@@ -109,7 +122,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     double fontSize,
     ColorThemeData colors,
     bool isIconOnly,
-    AppButtonSize effectiveSize,
+    double padding,
   ) {
     return Builder(
       builder: (context) {
@@ -118,14 +131,12 @@ class _ButtonWidgetState extends State<ButtonWidget> {
 
         return Container(
           padding: isIconOnly
-              ? EdgeInsets.all(effectiveSize.padding / 2) 
-              : EdgeInsets.symmetric(horizontal: effectiveSize.padding),
-          alignment: isIconOnly ? Alignment.center : null,
+              ? EdgeInsets.zero
+              : EdgeInsets.symmetric(horizontal: padding),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               if (widget.leftIcon != null) ...[
                 SizedBox(
                   width: iconLeftWidth,
@@ -138,7 +149,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 ),
                 if (widget.title != null) Gap(gapLeft),
               ],
-
               if (widget.title != null) ...[
                 Text(
                   widget.title!,
@@ -148,7 +158,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 ),
                 if (widget.rightIcon != null) Gap(gapRight),
               ],
-
               if (widget.rightIcon != null)
                 SizedBox(
                   width: iconRightWidth,
@@ -166,7 +175,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     );
   }
 
-
   StyleModel _resolveStyle(
     AppButtonState state,
     Set<WidgetState> states,
@@ -181,7 +189,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     return state.style(colors);
   }
 
-
   Color _resolveBg(
     AppButtonState state,
     Set<WidgetState> states,
@@ -193,7 +200,6 @@ class _ButtonWidgetState extends State<ButtonWidget> {
     if (states.contains(WidgetState.focused)) return state.focusedBg(colors);
     return state.bg(colors);
   }
-
 
   OutlinedBorder _resolveShape(
     AppButtonState state,

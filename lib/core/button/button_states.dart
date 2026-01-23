@@ -134,7 +134,7 @@ class _Neutral extends AppButtonState {
 
   @override
   BorderSide focusedSide(ColorThemeData colors) => BorderSide(
-    color: colors.neutral.shade300,
+    color: colors.neutral.shade200,
     width: 4,
   );
 
@@ -223,7 +223,7 @@ class _Link extends AppButtonState {
 
   @override
   StyleModel pressedStyle(ColorThemeData colors) =>
-      StyleModel(contentColor: colors.brand.shade800);
+      StyleModel(contentColor: colors.brand.shade500);
 
   @override
   StyleModel disabledStyle(ColorThemeData colors) =>
@@ -321,17 +321,19 @@ class _Outline extends AppButtonState {
       StyleModel(contentColor: colors.error);
 
   @override
-  StyleModel hoverStyle(ColorThemeData colors) => style(colors);
+  StyleModel hoverStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.error.shade700);
 
   @override
-  StyleModel focusedStyle(ColorThemeData colors) => style(colors);
+  StyleModel focusedStyle(ColorThemeData colors) =>
+      StyleModel(contentColor: colors.error.shade500);
 
   @override
   StyleModel pressedStyle(ColorThemeData colors) => style(colors);
 
   @override
   StyleModel disabledStyle(ColorThemeData colors) =>
-      StyleModel(contentColor: colors.neutral.shade200);
+      StyleModel(contentColor: colors.neutral.shade300);
 
   @override
   BorderSide side(ColorThemeData colors) =>
@@ -343,7 +345,7 @@ class _Outline extends AppButtonState {
 
   @override
   BorderSide focusedSide(ColorThemeData colors) =>
-      BorderSide(color: colors.error.shade700, width: 4);
+      BorderSide(color: colors.error.shade500, width: 4);
 
   @override
   BorderSide disabledSide(ColorThemeData colors) =>

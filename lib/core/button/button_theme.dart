@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:kmax/core/button/button_theme_data.dart';
 
 class CustomButtonTheme extends InheritedWidget {
-  final CustomButtonThemeData theme;
   const CustomButtonTheme({
     super.key,
     required this.theme,
     required super.child,
   });
+  final CustomButtonThemeData theme;
+
   static CustomButtonThemeData of(
     BuildContext context, {
     bool createDependency = true,
