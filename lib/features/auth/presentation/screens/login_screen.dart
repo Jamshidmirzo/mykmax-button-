@@ -6,7 +6,6 @@ import 'package:kmax/core/themes/theme_provider.dart';
 import 'package:kmax/core/utils/app_icons.dart';
 import 'package:kmax/features/onboardings/presentation/providers/onboarding_provider.dart';
 
-
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
@@ -19,7 +18,6 @@ class LoginScreen extends ConsumerWidget {
         title: const Text('Login'),
         leading: IconButton(
           onPressed: () {
-            // Reset onboarding state for testing purposes
             ref.read(onboardingProvider.notifier).save(false);
           },
           icon: const Icon(Icons.logout_outlined),
@@ -104,7 +102,7 @@ class LoginScreen extends ConsumerWidget {
                   state: const AppButtonState.neutral(),
                   leftIcon: AppIcons.person,
                   title: 'Disabled State',
-                  onTap: null, 
+                  onTap: null,
                 ),
               ],
             ),
