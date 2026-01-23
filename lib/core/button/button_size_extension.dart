@@ -5,75 +5,75 @@ extension AppButtonSizeExtension on AppButtonSize {
   double get height {
     switch (this) {
       case AppButtonSize.xl:
-        return 56.h;
+        return 56;
       case AppButtonSize.lg:
-        return 48.h;
+        return 48;
       case AppButtonSize.md:
-        return 42.h;
+        return 42;
       case AppButtonSize.sm:
-        return 32.h;
+        return 32;
       case AppButtonSize.xs:
-        return 24.h;
+        return 24;
     }
   }
 
   double get padding {
     switch (this) {
       case AppButtonSize.xl:
-        return 24.w;
+        return 24;
       case AppButtonSize.lg:
-        return 20.w;
+        return 20;
       case AppButtonSize.md:
-        return 17.w;
+        return 16;
       case AppButtonSize.sm:
-        return 12.w;
+        return 13;
       case AppButtonSize.xs:
-        return 10.w;
+        return 10;
     }
   }
 
   double get iconLeftWidth {
     switch (this) {
       case AppButtonSize.xl:
-        return 20.w;
+        return 20;
       case AppButtonSize.lg:
-        return 16.w;
+        return 16;
       case AppButtonSize.md:
-        return 16.w;
+        return 16;
       case AppButtonSize.sm:
-        return 13.w;
+        return 13;
       case AppButtonSize.xs:
-        return 11.w;
+        return 11;
     }
   }
 
   double get iconLeftHeight {
     switch (this) {
       case AppButtonSize.xl:
-        return 19.h;
+        return 19;
       case AppButtonSize.lg:
-        return 16.h;
+        return 16;
       case AppButtonSize.md:
-        return 16.h;
+        return 16;
       case AppButtonSize.sm:
-        return 13.h;
+        return 13;
       case AppButtonSize.xs:
-        return 11.h;
+        return 11;
     }
   }
 
   double get iconRightWidth {
     switch (this) {
       case AppButtonSize.xl:
-        return 18.w;
+        return 18;
       case AppButtonSize.lg:
-        return 15.w;
+        return 15;
       case AppButtonSize.md:
-        return 15.w;
+        return 15;
       case AppButtonSize.sm:
-        return 12.w;
+        return 12;
       case AppButtonSize.xs:
-        return 10.w;
+        return 10;
     }
   }
 
@@ -125,15 +125,15 @@ extension AppButtonSizeExtension on AppButtonSize {
   double get fontSize {
     switch (this) {
       case AppButtonSize.xl:
-        return 16.sp;
+        return 16;
       case AppButtonSize.lg:
-        return 16.sp;
+        return 16;
       case AppButtonSize.md:
-        return 14.sp;
+        return 14;
       case AppButtonSize.sm:
-        return 14.sp;
+        return 14;
       case AppButtonSize.xs:
-        return 12.sp;
+        return 12;
     }
   }
 }

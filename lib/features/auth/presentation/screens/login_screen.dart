@@ -94,13 +94,12 @@ class LoginScreen extends ConsumerWidget {
                   state: const AppButtonState.error(),
                   leftIcon: AppIcons.person,
                   title: 'Error Button',
-
+                  rightIcon: AppIcons.arrowRight,
                   size: AppButtonSize.sm,
                   onTap: () {},
                 ),
 
                 ButtonWidget(
-                  size: AppButtonSize.lg,
                   state: const AppButtonState.outline(),
                   leftIcon: AppIcons.person,
                   title: 'Outline Button',
