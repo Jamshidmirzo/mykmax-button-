@@ -15,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import 'core/config/local_config.dart' as _i705;
 import 'core/di/register_module.dart' as _i854;
+import 'features/main/data/datasource/user_permission_data_sources.dart'
+    as _i176;
 import 'features/onboardings/data/datasoruces/local_datasources.dart' as _i721;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -28,6 +30,9 @@ extension GetItInjectableX on _i174.GetIt {
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => registerModule.prefs,
       preResolve: true,
+    );
+    gh.factory<_i176.UserPermissionDataSources>(
+      () => _i176.UserPermissionDataSources(),
     );
     gh.lazySingleton<_i705.LocalConfig>(
       () => _i705.LocalConfig(sharedPreferences: gh<_i460.SharedPreferences>()),

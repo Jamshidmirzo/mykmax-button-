@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kmax/features/auth/presentation/screens/login_screen.dart';
+import 'package:kmax/features/main/presentation/screens/detail_home_screen.dart';
+import 'package:kmax/features/main/presentation/screens/home_screen.dart';
 import 'package:kmax/features/onboardings/presentation/providers/onboarding_provider.dart';
 import 'package:kmax/features/onboardings/presentation/screens/onboarding_screen.dart';
 
@@ -12,7 +13,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   final onboardingRoute = OnboardingRoute(id: 100);
   final loginRoute = LoginRoute();
   return GoRouter(
-    debugLogDiagnostics: true,
+    // debugLogDiagnostics: true,
     initialLocation: onboardCompleted.isShowed
         ? loginRoute.location
         : onboardingRoute.location,
@@ -29,6 +30,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     TypedGoRoute<OnboardingRoute>(
       path: '/onboarding/:id',
     ),
+    TypedGoRoute<HomeDetailRoute>(
+      path: '/homeDetail/:codename',
+    ),
   ],
 )
 class RootRoute extends GoRouteData with $RootRoute {
@@ -42,7 +46,28 @@ class LoginRoute extends GoRouteData with $LoginRoute {
   const LoginRoute();
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return LoginScreen();
+    return HomeScreen();
+  }
+}
+
+class HomeDetailRoute extends GoRouteData with $HomeDetailRoute {
+  final String codename;
+  final String? groupCodename;
+  final int? userId;
+
+  const HomeDetailRoute({
+    required this.codename,
+    this.groupCodename,
+    this.userId,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return DetailHomeScreen(
+      codename: codename,
+      groupCodename: groupCodename,
+      userId: userId,
+    );
   }
 }
 

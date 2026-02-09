@@ -17,6 +17,10 @@ RouteBase get $rootRoute => GoRouteData.$route(
       path: '/onboarding/:id',
       factory: $OnboardingRoute._fromState,
     ),
+    GoRouteData.$route(
+      path: '/homeDetail/:codename',
+      factory: $HomeDetailRoute._fromState,
+    ),
   ],
 );
 
@@ -83,4 +87,49 @@ mixin $OnboardingRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $HomeDetailRoute on GoRouteData {
+  static HomeDetailRoute _fromState(GoRouterState state) => HomeDetailRoute(
+    codename: state.pathParameters['codename']!,
+    groupCodename: state.uri.queryParameters['group-codename'],
+    userId: _$convertMapValue(
+      'user-id',
+      state.uri.queryParameters,
+      int.tryParse,
+    ),
+  );
+
+  HomeDetailRoute get _self => this as HomeDetailRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/homeDetail/${Uri.encodeComponent(_self.codename)}',
+    queryParams: {
+      if (_self.groupCodename != null) 'group-codename': _self.groupCodename,
+      if (_self.userId != null) 'user-id': _self.userId!.toString(),
+    },
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+T? _$convertMapValue<T>(
+  String key,
+  Map<String, String> map,
+  T? Function(String) converter,
+) {
+  final value = map[key];
+  return value == null ? null : converter(value);
 }
